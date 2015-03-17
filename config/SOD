@@ -1,0 +1,17 @@
+# Number of substitutions to start at
+num_sub_start="1"
+
+# Number of substitutions to end with
+num_sub_end="15"
+
+# Folder prefix (no spaces)
+prefix="sup_sno2"
+
+# Number of cores to use with VASP
+n_cores="8"
+
+# DOESN'T WORK ATM Path to SOD exe folder (don't terminate with slash)
+path_to_sod="~/scripts/sod"
+
+# Test run, if on then won't run VASP files, just generate them. (0 = TEST RUN, 1 = LIVE RUN)
+test_run="0"

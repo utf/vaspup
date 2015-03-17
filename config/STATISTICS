@@ -1,0 +1,10 @@
+# This is the default config for automating sod statistics.
+# Make sure to rename to CONFIG before running
+
+temp_start="50"
+temp_stop="1500"
+temp_step="50"
+
+n_pos_subs="8"
+pure_start=""
+pure_end=""
