@@ -33,9 +33,9 @@ fi
 n=$(sed '2q;d' "$file")
 
 # Calculate the magnitude of each lattice vector
-a=$(sed '3q;d' "$file" | awk '{printf "%.10f", sqrt($1**2 + $2**2 + $3**2)}')
-b=$(sed '4q;d' "$file" | awk '{printf "%.10f", sqrt($1**2 + $2**2 + $3**2)}')
-c=$(sed '5q;d' "$file" | awk '{printf "%.10f", sqrt($1**2 + $2**2 + $3**2)}')
+a=$(sed '3q;d' "$file" | awk '{printf "%.10f", sqrt($1^2 + $2^2 + $3^2)}')
+b=$(sed '4q;d' "$file" | awk '{printf "%.10f", sqrt($1^2 + $2^2 + $3^2)}')
+c=$(sed '5q;d' "$file" | awk '{printf "%.10f", sqrt($1^2 + $2^2 + $3^2)}')
 
 # Calculate the absolute length and print the lattice constants
 # The echo before awk is necessary for awk to give output
