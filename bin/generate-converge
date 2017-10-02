@@ -7,6 +7,7 @@
 [ ! -f input/POTCAR ] && echo "POTCAR file not found in ./input/ directory" && exit
 [ ! -f input/KPOINTS ] && echo "KPOINTS file not found in ./input/ directory" && exit
 [ ! -f input/POSCAR ] && echo "POSCAR file not found in ./input/ directory" && exit
+[ ! -f input/job ] && echo "job file not found in ./input/ directory\njob submission will not work" && exit
 
 # Read CONFIG file to get parameters
 source input/CONFIG
@@ -25,6 +26,7 @@ if [ "$conv_enmax" -eq "1" ]; then
     cp ../../input/POSCAR .
     sed -i "s/ENMAX .*$/ENMAX  = $i eV/g" INCAR
     sed -i "s/ENCUT .*$/ENCUT  = $i eV/g" INCAR
+    [ -f ../../input/job ] && cp ../../input/job .
 
     [ "$run_vasp" -eq "1" ] && qsub job
     cd ..
@@ -48,6 +50,7 @@ if [ "$conv_kpoint" -eq "1" ]; then
     cp ../../input/INCAR .
     cp ../../input/POTCAR .
     cp ../../input/POSCAR .
+    [ -f ../../input/job ] && cp ../../input/job .
 
     if ! sed -i "s/$kpoint_start/$i/g" KPOINTS ; then
       echo "KPOINT not formatted correctly. Exiting... "
