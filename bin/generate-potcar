@@ -3,6 +3,9 @@
 # Generates a POTCAR based on the POSCAR in the current directory.
 # A specific file can also be supplied as an argument and failing that
 # the POTCAR is generated interactively.
+# Requires the VASP_POTENTIALS environment variable to be set
+
+[[ ! -v "VASP_POTENTIALS" ]] && echo "VASP_POTENTIALS environment variable not set; see README" && exit
 
 base=$(dirname "${BASH_SOURCE[0]}")
 workingDir=$(pwd) # Where the sciprt was called from
@@ -35,8 +38,8 @@ if [ $poscar -eq 1 ]; then
   # The sed is important for using POSCAR generated on Windows
   # Otherwise the last symbol isn't recognised properly. Such a pain
   # to debug.
-  elementList=$("${base}/vaspup/name-elements.sh" $1 | sed $'s/\r//')
-  nEl=$("${base}/vaspup/num-elements.sh" $1)
+  elementList=$("${base}/../vaspup/name-elements.sh" $1 | sed $'s/\r//')
+  nEl=$("${base}/../vaspup/num-elements.sh" $1)
 fi
 
 # For each of the options, keep doing this loop until a choice has been

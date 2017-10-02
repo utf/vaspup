@@ -4,9 +4,9 @@
 # based on a POSCAR and POTCAR combination
 
 base=$(dirname "${BASH_SOURCE[0]}")
-total_num_elements=$("${base}/vaspup/num-elements.sh")
-indiv_num_elements=$("${base}/vaspup/num-elements-list.sh")
-num_atoms=$("${base}/plaspup/num-atoms.sh")
+total_num_elements=$("${base}/../vaspup/num-elements.sh")
+indiv_num_elements=$("${base}/../vaspup/num-elements-list.sh")
+num_atoms=$("${base}/../vaspup/num-atoms.sh")
 line_numbers=$(grep -nr -P "^\s*PAW_PBE" POTCAR | awk '{print $1}' | tr -d ':' | tr '\n' ' ')
 
 total_electrons=0
