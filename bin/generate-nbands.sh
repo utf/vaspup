@@ -1,8 +1,12 @@
 #!/bin/bash
 
-total_num_elements=$(~/scripts/util/num-elements.sh)
-indiv_num_elements=$(~/scripts/util/num-elements-list.sh)
-num_atoms=$(~/scripts/util/num-atoms.sh)
+# Generates the number of electrons and suggested number of bands
+# based on a POSCAR and POTCAR combination
+
+base=$(dirname "${BASH_SOURCE[0]}")
+total_num_elements=$("${base}/vaspup/num-elements.sh")
+indiv_num_elements=$("${base}/vaspup/num-elements-list.sh")
+num_atoms=$("${base}/plaspup/num-atoms.sh")
 line_numbers=$(grep -nr -P "^\s*PAW_PBE" POTCAR | awk '{print $1}' | tr -d ':' | tr '\n' ' ')
 
 total_electrons=0
@@ -15,6 +19,6 @@ done
 nbands=$(echo "($total_electrons / 1.6) + ($num_atoms / 2)" | bc)
 nbands_r1=$(echo $nbands | awk '{printf "%d", (($1 / 24) + 1) }')
 nbands_rounded=$(echo $nbands_r1 | awk '{printf "%d", ($1 * 24) }')
-#echo "NELECT = $total_electrons"
-#echo "NIONS = $num_atoms"
-echo "$(echo "2 * $nbands_rounded" | bc)"
+echo "NELECT = $total_electrons"
+echo "NIONS = $num_atoms"
+echo "Suggested NBANDS (band structure) = $(echo "2 * $nbands_rounded" | bc)"

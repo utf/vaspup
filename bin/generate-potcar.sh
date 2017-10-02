@@ -4,8 +4,7 @@
 # A specific file can also be supplied as an argument and failing that
 # the POTCAR is generated interactively.
 
-potDir="$HOME/bin/potentials" # Path to potentials
-scriptDir="$HOME/scripts" # Path to scripts folder
+base=$(dirname "${BASH_SOURCE[0]}")
 workingDir=$(pwd) # Where the sciprt was called from
 
 # Check if user has supplied a POSCAR
@@ -36,8 +35,8 @@ if [ $poscar -eq 1 ]; then
   # The sed is important for using POSCAR generated on Windows
   # Otherwise the last symbol isn't recognised properly. Such a pain
   # to debug.
-  elementList=$($scriptDir/util/name-elements.sh $1 | sed $'s/\r//')
-  nEl=$($scriptDir/util/num-elements.sh $1)
+  elementList=$("${base}/vaspup/name-elements.sh" $1 | sed $'s/\r//')
+  nEl=$("${base}/vaspup/num-elements.sh" $1)
 fi
 
 # For each of the options, keep doing this loop until a choice has been
@@ -54,7 +53,7 @@ for i in $(seq 1 $nEl); do
       element=$(echo $elementList | awk -v i=$i '{print $i}')
     fi
 
-    cd $potDir
+    cd $VASP_POTENTIALS
 
     # This regex is a bit hacky but it works
     pos=$(ls | grep "\(${element}_.*\)\|${element}\b\|\(${element}\..*\)")

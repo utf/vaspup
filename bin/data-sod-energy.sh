@@ -15,7 +15,7 @@ for i in */*/CONTCAR; do
   lattice=$(~/scripts/data-lattice.sh "$i")
 
   echo -e "$name\t$energy_total\t$energy_per_atom\t$lattice" >> $tmp
-  
+
 done
 
 column -t < $tmp > data # make the data look pretty

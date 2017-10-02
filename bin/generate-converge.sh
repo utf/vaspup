@@ -1,18 +1,15 @@
 #!/bin/bash
 
-#
 # Check all needed files exist
-#
+
 [ ! -f input/CONFIG ] && echo "CONFIG file not found in ./input/ directory" && exit
 [ ! -f input/INCAR ] && echo "INCAR file not found in ./input/ directory" && exit
 [ ! -f input/POTCAR ] && echo "POTCAR file not found in ./input/ directory" && exit
 [ ! -f input/KPOINTS ] && echo "KPOINTS file not found in ./input/ directory" && exit
 [ ! -f input/POSCAR ] && echo "POSCAR file not found in ./input/ directory" && exit
 
-
 # Read CONFIG file to get parameters
 source input/CONFIG
-
 
 # Converge ENMAX
 if [ "$conv_enmax" -eq "1" ]; then
@@ -30,15 +27,15 @@ if [ "$conv_enmax" -eq "1" ]; then
       echo "INCAR not formatted correctly. Exiting..."
       exit
     fi
-    
+
     task_name=$prefix"_e"$i
-    [ "$run_vasp" -eq "1" ] && vasp 5.2.12 $vasp_cores "$task_name"
+    [ "$run_vasp" -eq "1" ] && qsub job
     cd ..
   done
   cd ..
 fi
 
-# Converge KPOINT
+# Converge k-points
 if [ "$conv_kpoint" -eq "1" ]; then
   [ -d kpoint_converge ] && rm kpoint_converge -rf
   mkdir "kpoint_converge"
@@ -61,9 +58,9 @@ if [ "$conv_kpoint" -eq "1" ]; then
     fi
 
     task_name=$prefix"_k"$n
-    [ "$run_vasp" -eq "1" ] && vasp 5.2.12 $vasp_cores "$task_name"
+    [ "$run_vasp" -eq "1" ] && qsub job
     let n=n+1
     cd ..
   done
   cd ..
-fi 
+fi

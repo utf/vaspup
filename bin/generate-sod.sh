@@ -36,8 +36,8 @@ fi
 
 source input/CONFIG
 
-if [ ! -f ~/scripts/sod/sod_comb ]; then
-    echo "Cannot find sod_comb in ~/scripts/sod"
+if [ ! -x sod_comb ]; then
+    echo "Cannot find sod_comb, please ensure your PATH is correct."
     exit
 fi
 
@@ -58,23 +58,22 @@ do
 
   # Change the number of substitutions (change line after "# nsub" is matched)
   sed -i '/# nsub/{n;s/.*/'$i'/;}' INSOD 
-  
-  # Use some crappy method of running SOD
-  ~/scripts/sod/sod_comb
+
+  sod_comb
 
   # Prepare the generated files for running with VASP
   cd CALCS
-  n=1 
-  for vasp_file in *.vaspin 
+  n=1
+  for vasp_file in *.vaspin
   do
-    mkdir $n 
+    mkdir $n
     mv $vasp_file $n/POSCAR
     cp ../../input/INCAR $n/
     cp ../../input/POTCAR $n/
     cp ../../input/KPOINTS $n/
     let n=n+1
   done
-  
+
   # Clean up and rename folder
   rm job_sender
   cd ../../
@@ -83,7 +82,7 @@ do
     rm "$new_folder" -r
   fi
   mv tmpsod/CALCS "$new_folder"
-  
+
   # Run vasp in all subfolders
   cd "$new_folder"
   for folder in */
@@ -94,8 +93,8 @@ do
  #   vasp 5.2.12 $n_cores "$task_name" 
     cd ..
   done
-  cd .. 
+  cd ..
 
   # Clean up
-  rm tmpsod -r 
+  rm tmpsod -r
 done
