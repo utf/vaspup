@@ -96,7 +96,7 @@ for i in $(seq 1 $nEl); do
   done
 
   # Move the POTCAR of choice to the working directory
-  cp "$choice/POTCAR.Z" $workingDir/${i}_POTCAR.Z -f
+  cp "$choice/POTCAR" $workingDir/${i}_POTCAR -f
 
   # Need unset so the while loop can work properly. It enables us to be understanding
   # if the user makes any mistakes.
@@ -106,7 +106,6 @@ done
 cd $workingDir
 
 # Prepare the files for catenating
-gunzip -f *POTCAR.Z
 for i in $(seq 1 $nEl); do
   catCommand+="${i}_POTCAR "
 done
