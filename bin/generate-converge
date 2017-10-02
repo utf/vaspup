@@ -26,7 +26,6 @@ if [ "$conv_enmax" -eq "1" ]; then
     sed -i "s/ENMAX .*$/ENMAX  = $i eV/g" INCAR
     sed -i "s/ENCUT .*$/ENCUT  = $i eV/g" INCAR
 
-    task_name=$prefix"_e"$i
     [ "$run_vasp" -eq "1" ] && qsub job
     cd ..
   done
@@ -55,7 +54,6 @@ if [ "$conv_kpoint" -eq "1" ]; then
       exit
     fi
 
-    task_name=$prefix"_k"$n
     [ "$run_vasp" -eq "1" ] && qsub job
     let n=n+1
     cd ..

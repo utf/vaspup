@@ -11,5 +11,3 @@ kpoint_start="3 5 1"	# Needs to be exactly the same line as in KPOINTS file
 kpoints="1 3 1,2 4 1,3 5 1,4 6 2,5 7 3"		#All the kpoints mesh's you want to try, seperated by a comma
 
 run_vasp="1"		# Run vasp after generating the files? (1 for ON, 0 for OFF)
-prefix=""
-vasp_cores="8"
