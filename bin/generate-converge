@@ -13,9 +13,9 @@ source input/CONFIG
 
 # Converge ENMAX
 if [ "$conv_enmax" -eq "1" ]; then
-  [ -d enmax_converge ] && rm enmax_converge -rf
-  mkdir enmax_converge
-  cd enmax_converge
+  [ -d cutoff_converge ] && rm cutoff_converge -rf
+  mkdir cutoff_converge
+  cd cutoff_converge
   for i in $(eval echo "{$enmax_start..$enmax_end..$enmax_step}"); do
     mkdir "cutoff_$i"
     cd "cutoff_$i"
@@ -23,10 +23,8 @@ if [ "$conv_enmax" -eq "1" ]; then
     cp ../../input/INCAR .
     cp ../../input/POTCAR .
     cp ../../input/POSCAR .
-    if ! sed -i "s/ENMAX .*$/ENMAX  = $i eV/g" INCAR ; then
-      echo "INCAR not formatted correctly. Exiting..."
-      exit
-    fi
+    sed -i "s/ENMAX .*$/ENMAX  = $i eV/g" INCAR
+    sed -i "s/ENCUT .*$/ENCUT  = $i eV/g" INCAR
 
     task_name=$prefix"_e"$i
     [ "$run_vasp" -eq "1" ] && qsub job
