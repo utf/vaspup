@@ -17,8 +17,8 @@ for i in $(seq 1 $total_num_elements); do
 done
 
 nbands=$(echo "($total_electrons / 1.6) + ($num_atoms / 2)" | bc)
-nbands_r1=$(echo $nbands | awk '{printf "%d", (($1 / 24) + 1) }')
-nbands_rounded=$(echo $nbands_r1 | awk '{printf "%d", ($1 * 24) }')
+nbands_r1=$(echo $nbands | awk '{printf "%d", (($1 / 16) + 1) }')
+nbands_rounded=$(echo $nbands_r1 | awk '{printf "%d", ($1 * 16) }')
 echo "NELECT = $total_electrons"
 echo "NIONS = $num_atoms"
 echo "Suggested NBANDS (band structure) = $(echo "2 * $nbands_rounded" | bc)"
