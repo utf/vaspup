@@ -21,4 +21,4 @@ nbands_r1=$(echo $nbands | awk '{printf "%d", (($1 / 16) + 1) }')
 nbands_rounded=$(echo $nbands_r1 | awk '{printf "%d", ($1 * 16) }')
 echo "NELECT = $total_electrons"
 echo "NIONS = $num_atoms"
-echo "Suggested NBANDS (band structure) = $(echo "2 * $nbands_rounded" | bc)"
+echo "Suggested NBANDS (band structure) = $(echo "$nbands_rounded" | bc)"
